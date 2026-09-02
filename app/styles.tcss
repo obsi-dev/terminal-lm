@@ -1,0 +1,11 @@
+#confirm_dialog {
+    align: center middle;
+    width: 60%;
+    height: auto;
+    border: thick $accent;
+    padding: 1 2;
+}
+
+#confirm_dialog Button {
+    margin: 1 2
+}
