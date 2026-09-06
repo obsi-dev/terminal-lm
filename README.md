@@ -62,10 +62,6 @@ For one quick command:
 tlm run "..."
 ```
 
-```
-
-```
-
 ## Architecture
 
 ```
