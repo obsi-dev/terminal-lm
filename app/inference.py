@@ -5,7 +5,10 @@ from peft import PeftModel
 BASE_MODEL = "Qwen/Qwen2.5-3B-Instruct"
 ADAPTER_DIR = "./checkpoints"
 
-SYSTEM_PROMPT = "You are a Linux command-line assistant. Given a natural language instruction, respond with ONLY the exact bash command that accomplishes it. Do not include explanations."
+SYSTEM_PROMPT = (
+    "You are a Linux command-line assistant. Given a natural language instruction, respond with ONLY the exact bash command that accomplishes it. Do not include explanations."
+    "Assume all commands operate on the present working directory (.) unless the user explicitly states a different path. Exclude hidden files and directories (those starting with a dot) unless the user explicitly asks to include them"
+)
 
 
 class InferenceEngine:

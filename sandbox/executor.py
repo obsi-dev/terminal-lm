@@ -1,9 +1,14 @@
 import docker
+import os
 import tempfile
 import shutil
 from dataclasses import dataclass
 
 client = docker.from_env()
+
+
+def _ignore_hidden(directory: str, contents: list[str]) -> list[str]:
+    return [name for name in contents if name.startswith(".")]
 
 
 @dataclass
@@ -24,7 +29,16 @@ def run_in_sandbox(
 
     if working_dir:
         temp_copy = tempfile.mkdtemp(prefix="terminal-lm_sandbox_")
-        shutil.copytree(working_dir, temp_copy, dirs_exist_ok=True)
+        shutil.copytree(
+            working_dir, temp_copy, dirs_exist_ok=True, ignore=_ignore_hidden
+        )
+
+        for root, dirs, files in os.walk(temp_copy):
+            for d in dirs:
+                os.chmod(os.path.join(root, d), 0o777)
+            for f in files:
+                os.chmod(os.path.join(root, f), 0o666)
+
         volumes[temp_copy] = {"bind": "/home/sandboxuser", "mode": "rw"}
 
     container = None
@@ -46,7 +60,7 @@ def run_in_sandbox(
             timed_out = False
         except Exception:
             container.kill()
-            result = {"StatusCode", -1}
+            result = {"StatusCode": -1}
             timed_out = True
 
         stdout = container.logs(stdout=True, stderr=False).decode(errors="replace")

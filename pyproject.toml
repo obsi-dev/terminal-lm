@@ -1,0 +1,23 @@
+[project]
+name = "terminal-lm"
+version = "0.1.0"
+dependencies = [
+    "typer",
+    "torch",
+    "transformers",
+    "peft",
+    "bitsandbytes",
+    "trl",
+    "datasets",
+    "accelerate",
+]
+
+[project.scripts]
+tlm = "app.cli:app"
+
+[tool.setuptools]
+packages = ["app", "sandbox"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

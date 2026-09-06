@@ -12,3 +12,5 @@ data/
 .DS_Store
 .vscode/
 *.swp
+
+*egg-info/
