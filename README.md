@@ -16,42 +16,60 @@ So I made this. Qwen2.5-3B-Instruct fine-tuned with transformer architecture and
 
 ### Installation
 
-\`\`\` bash
+```bash
 git clone git@github.com:obsi-dev/terminal-lm
 cd terminal-lm
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
-\`\`\`
+```
 
 ### Building the Docker image
-\`\`\`bash
+
+```bash
 docker build -t terminal-lm -f sandbox/Dockerfile sandbox
-\`\`\`
+```
 
 ### Docker Permissions
 
 If you ever hit "permission denied" related to some Docker stuff add your user to the docker group:
-\`\`\`bash
+
+```bash
 sudo usermod -aG docker $USER
-\`\`\`
+```
 
 ### Training the model
 
 Model adapter isn't included in this repo, since weights are large and regenerable
-\`\`\`bash
+
+```bash
 python training/train.py
-\`\`\`
+```
+
 Note: This takes a while, it took me around 1.5 hours on an RTX 3070 (8GB VRAM) but once done it is persistent and the only time taken is to load weights.
 
-## Architecture
+## Usage
 
-\`\`\`
-app/ - CLI entry point (Typer) and inference engine
-sandbox/ - Docker based sandbox
-training/ - QLoRA fine tuning script
-\`\`\`
+For entering the command-line interface:
+
+```bash
+tlm
+```
+
+For one quick command:
+
+```bash
+tlm run "..."
+```
 
 ```
 
+```
+
+## Architecture
+
+```
+app/ - CLI entry point (Typer) and inference engine
+sandbox/ - Docker based sandbox
+training/ - QLoRA fine tuning script
 ```
