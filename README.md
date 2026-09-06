@@ -22,9 +22,10 @@ cd terminal-lm
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
+\`\`\`
 
-# for building the sandbox image
-
+### Building the Docker image
+\`\`\`bash
 docker build -t terminal-lm -f sandbox/Dockerfile sandbox
 \`\`\`
 
